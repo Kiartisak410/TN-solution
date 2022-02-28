@@ -46,19 +46,14 @@ func LeaveUpdate(c *fiber.Ctx) error{
 	var data map[string]string
 
 	if err := c.BodyParser(&data); err != nil {
-		fmt.Print("error")
+		fmt.Print(err)
 	}
 
 	lid, _ := strconv.Atoi(data["lid"])
 	fmt.Println(data["lid"])
-	start_date, _ := time.Parse("2006/01/02", data["start"])
-	end_date, _ := time.Parse("2006/01/02", data["end"])
 	fmt.Print(data["status"])
 	leave := models.Leave{
 		Uid:    data["uid"],
-		Reason: data["reason"],
-		Start_date: &start_date,
-		End_date: &end_date,
 		Status: (data["status"]),
 	}
 	database.DB.Where("lid = ?", lid).Updates(&leave)
@@ -71,7 +66,7 @@ func LeaveDelete(c *fiber.Ctx) error {
 	var data map[string]string
 
 	if err := c.BodyParser(&data); err != nil {
-		fmt.Print("error")
+		fmt.Print(err)
 	}
 
 	var leave models.Leave
