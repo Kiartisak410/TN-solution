@@ -23,7 +23,7 @@ func SalAdd(c *fiber.Ctx) error {
 
 	salary := models.Salary{
 		Sid:       uint(sid),
-		Uid:       data["uid"],
+		Uname:     data["uname"],
 		Sal_base:  data["sal_base"],
 		Sal_total: data["sal_total"],
 		Sal_date:  &sal_date,
@@ -54,7 +54,7 @@ func SalUpdate(c *fiber.Ctx) error {
 
 	salary := models.Salary{
 		Sid:       uint(sid),
-		Uid:       data["uid"],
+		Uname:     data["uname"],
 		Sal_base:  data["sal_base"],
 		Sal_total: data["sal_total"],
 		Sal_date:  &sal_date,
@@ -67,14 +67,14 @@ func SalUpdate(c *fiber.Ctx) error {
 
 func SalDelete(c *fiber.Ctx) error {
 	var data map[string]string
-	
+
 	if err := c.BodyParser(&data); err != nil {
 		fmt.Print(err)
 	}
 
 	var salary models.Salary
 
-	database.DB.Where("uid = ?", data["uid"]).Delete(&salary)
+	database.DB.Where("uname = ?", data["uname"]).Delete(&salary)
 	return c.JSON(fiber.Map{
 		"message": "Delete completed",
 	})

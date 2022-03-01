@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const AdHome = (props) => {
   const [dataList, setDatalist] = useState([]);
 
-  axios("http://localhost:8081/api/v1/all").then((response) =>
-    setDatalist(response.data)
-  );
+  useEffect(() => {
+    axios("http://localhost:8081/api/v1/all").then((response) =>
+      setDatalist(response.data)
+    );
+  });
 
   // if (props.name != null){
   //   setUser(dataList.find((dataList) => dataList.Uname === props.name));
   // }
-  
+
   const Sum = () => {
     const count = dataList.length;
     return (
@@ -56,9 +58,7 @@ const AdHome = (props) => {
   return (
     <>
       <h1>Hello Morning</h1>
-      <div>
-
-      </div>
+      <div></div>
       <div className="list-card">
         <Sum />
         <SumUser />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect ,useState } from "react";
 import Popup from "./popup";
 
 async function DelUser(credentials) {
@@ -47,16 +47,18 @@ const EmTable = () => {
     setIsOpen(!isOpen);
   };
 
-  const controller = new AbortController();
-  const signal = controller.signal;
-  const promise = new Promise(async (resolve) => {
-    async function show() {
-      const res = await fetch("http://localhost:8081/api/v1/all", signal);
-      res.json().then((res) => setDatalist(res));
-    }
-    show();
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const promise = new Promise(async (resolve) => {
+      async function show() {
+        const res = await fetch("http://localhost:8081/api/v1/all", signal);
+        res.json().then((res) => setDatalist(res));
+      }
+      show();
+    });
+    promise.cancel = () => controller.abort();
   });
-  promise.cancel = () => controller.abort();
 
   const Edit = (e, uName, passWord, fName, lName, eMail, pHone, adDress) => {
     setEdit(dataList.find((dataList) => dataList.Uname === uName));

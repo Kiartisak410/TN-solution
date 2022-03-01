@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
@@ -37,11 +37,13 @@ const DateFormat = (date) => {
 const Table = () => {
   const [dataList, setDataList] = useState([]);
 
-  async function show() {
-    const res = await fetch("http://localhost:8081/api/v1/leave/all");
-    res.json().then((res) => setDataList(res));
-  }
-  show();
+  useEffect(() => {
+    async function show() {
+      const res = await fetch("http://localhost:8081/api/v1/leave/all");
+      res.json().then((res) => setDataList(res));
+    }
+    show();
+  });
 
   const Edit = (e, Lid) => {
     e.preventDefault();

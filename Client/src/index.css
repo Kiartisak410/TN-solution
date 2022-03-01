@@ -383,6 +383,10 @@ footer .copy-r p {
   font-size: 30px;
 }
 
+.tb-em tbody {
+  font-size: 24px;
+}
+
 .popup-box {
   position: fixed;
   border-radius: 10px;
@@ -565,5 +569,26 @@ footer .copy-r p {
 .btn-up:hover {
   background-color: #2c3333;
   color: #fff;
+}
+
+.add-sal .form-select {
+  font-size: 24px;
+  margin: 1% 0%;
+}
+
+.add-sal input {
+  font-size: 24 px;
+  padding: 0.5% !important;
+  border: 1px solid #000 !important;
+  border-radius: 5px !important;
+}
+
+.add-sal label {
+  font-size: 24px;
+  color: #000;
+}
+
+.add-sal .form-select {
+  font-family: "Prompt", sans-serif;
 }
 /*# sourceMappingURL=index.css.map */
