@@ -51,7 +51,7 @@ const LogForm = () => {
     return <Redirect to={`/admin/${uname}`} />;
   }
   if (redirect === "user") {
-    return <Redirect to={"/user"} />;
+    return <Redirect to={`/user/${uname}`} />;
   }
 
   return (

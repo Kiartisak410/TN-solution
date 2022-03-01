@@ -146,20 +146,22 @@ const Leave = () => {
   return (
     <>
       <h1>การลา</h1>
-      <table className="tb-em">
-        <thead>
-          <th>ลำดับ</th>
-          <th>ชื่อผู้ใช้</th>
-          <th>เหตุผลการลา</th>
-          <th>วันที่เริ่ม</th>
-          <th>วันที่สิ้นสุด</th>
-          <th>สถานะ</th>
-          <th>ตัวเลือก</th>
-        </thead>
-        <tbody>
-          <Table />
-        </tbody>
-      </table>
+      <div className="con-tb leave-tb">
+        <table className="tb-em">
+          <thead>
+            <th>เลขที่บันทึก</th>
+            <th>ชื่อผู้ใช้</th>
+            <th>เหตุผลการลา</th>
+            <th>วันที่เริ่ม</th>
+            <th>วันที่สิ้นสุด</th>
+            <th>สถานะ</th>
+            <th>ตัวเลือก</th>
+          </thead>
+          <tbody>
+            <Table />
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

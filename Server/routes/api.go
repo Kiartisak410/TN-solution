@@ -9,7 +9,7 @@ func Setup(app *fiber.App){
 	// User
 	app.Post("/api/v1/add", controllers.AddUser)
 	app.Post("/api/v1/login", controllers.Login)
-	app.Get("/api/v1/user", controllers.User)
+	app.Post("/api/v1/user", controllers.User)
 	app.Get("/api/v1/all", controllers.AllUser)
 	app.Delete("/api/v1/delete", controllers.Delete)
 	app.Post("/api/v1/update", controllers.UpdateUser)

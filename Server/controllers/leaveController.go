@@ -17,12 +17,11 @@ func LeaveAdd(c *fiber.Ctx) error {
 		fmt.Print("error")
 	}
 
-	lid, _ := strconv.Atoi(data["lid"])
 	var status = "0"
+	fmt.Print(data["start"])
 	start_date, _ := time.Parse("2006/01/02", data["start"])
 	end_date, _ := time.Parse("2006/01/02", data["end"])
 	leave := models.Leave{
-		Lid:    uint(lid),
 		Uid:    data["uid"],
 		Reason: data["reason"],
 		Start_date: &start_date,

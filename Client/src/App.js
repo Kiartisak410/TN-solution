@@ -13,10 +13,8 @@ function App() {
                     <Route exact path="/">
                         <Login />
                     </Route>
-                    <Route path="/:id" component={Admin} />
-                    <Route path="/user">
-                        <User />
-                    </Route>
+                    <Route path="/admin/:id" component={Admin} />
+                    <Route path="/user/:id" component={User} />
                 </Switch>
             </BrowserRouter>
       </>

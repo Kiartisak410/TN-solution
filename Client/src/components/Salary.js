@@ -20,12 +20,13 @@ const AddSal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataList, setDataList] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  const [get, setGet] = useState([]);
   const [data, setData] = useState([]);
   const [uname, setUname] = useState("");
   const [sal_base, setSalBase] = useState("");
   const [sal_total, setSalTotal] = useState("");
   const [sal_date, setSalDate] = useState("");
-
+  const [leave, setLeave] = useState("");
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -38,17 +39,29 @@ const AddSal = () => {
     });
     promise.cancel = () => controller.abort();
 
-    async function data() {
+    async function Data() {
       const res = await fetch("http://localhost:8081/api/v1/leave/all");
       res.json().then((res) => setData(res));
     }
-    data();
+    Data();
   });
 
+  const userGet = (id) => {
+    setUname(id);
+    setGet(data.find((data) => data.Uid === id));
+  };
+
   const salcom = (sal) => {
-    setSalBase(sal)
-    
-  }
+    setSalBase(sal);
+    alert(get.length)
+    const count = get.reduce(
+      (count, { Status }) => (Status === "1" ? (count += 1) : count),
+      0
+    );
+    setLeave(count);
+    const sum = sal - count * (sal / 30);
+    setSalTotal(parseFloat(sum).toFixed(2));
+  };
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -71,7 +84,7 @@ const AddSal = () => {
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  onChange={(e) => setUname(e.target.value)}
+                  onChange={(e) => userGet(e.target.value)}
                 >
                   <option selected>เลือกผู้ใช้</option>
                   {dataList.map((val) => {
@@ -83,11 +96,24 @@ const AddSal = () => {
                   })}
                 </select>
                 <label class="form-label">ฐานเงินเดือน</label>
-                <input type="text" onChange={(e) => salcom(e.target.value)}></input>
-                <label for="exampleInputEmail1" class="form-label">
-                  เงินเดือนสุทธิ
-                </label>
-                <input type="text"></input>
+                <input
+                  type="text"
+                  onChange={(e) => salcom(e.target.value)}
+                ></input>
+                <div className="total">
+                  <div className="lotal-group">
+                    <label for="exampleInputEmail1" class="form-label">
+                      เงินเดือนสุทธิ
+                    </label>
+                    <input type="text" defaultValue={sal_total}></input>
+                  </div>
+                  <div className="total-group">
+                    <label for="exampleInputEmail1" class="form-label">
+                      จำนวนวันลา
+                    </label>
+                    <input type="text" defaultValue={leave}></input>
+                  </div>
+                </div>
                 <label for="exampleInputEmail1" class="form-label">
                   วันที่ออก
                 </label>
