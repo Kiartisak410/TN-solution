@@ -88,7 +88,6 @@ const EmTable = () => {
 
   const update = async (e) => {
     e.preventDefault();
-    alert(fname);
     const response = await UpdateUser({
       uname,
       password,

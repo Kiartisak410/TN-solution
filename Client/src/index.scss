@@ -504,6 +504,7 @@ footer {
 .list-card {
   width: 70%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -645,4 +646,15 @@ footer {
 
 .leave-tb{
   height: 80% !important;
+}
+
+.leave-card{
+  width: 30%;
+  font-size: 30px;
+  font-weight: 500;
+  background-color: #f84545;
+  padding: 1%;
+  margin-top: 1%;
+  border-radius: 10px;
+  border: 0 solid transparent;
 }

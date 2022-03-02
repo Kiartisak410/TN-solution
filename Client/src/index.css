@@ -549,6 +549,8 @@ footer .copy-r p {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -724,5 +726,16 @@ footer .copy-r p {
 
 .leave-tb {
   height: 80% !important;
+}
+
+.leave-card {
+  width: 30%;
+  font-size: 30px;
+  font-weight: 500;
+  background-color: #f84545;
+  padding: 1%;
+  margin-top: 1%;
+  border-radius: 10px;
+  border: 0 solid transparent;
 }
 /*# sourceMappingURL=index.css.map */

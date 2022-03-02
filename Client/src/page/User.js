@@ -19,7 +19,7 @@ function User() {
         return <UsLeave name={param.id}/>
     }
     if (activeTab === "tab3") {
-        return <UsSal />
+        return <UsSal name={param.id}/>
     }
   };
   return (

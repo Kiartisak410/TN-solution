@@ -3,10 +3,15 @@ import axios from "axios";
 
 const AdHome = (props) => {
   const [dataList, setDatalist] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     axios("http://localhost:8081/api/v1/all").then((response) =>
       setDatalist(response.data)
+    );
+
+    axios("http://localhost:8081/api/v1/leave/all").then((response) =>
+      setData(response.data)
     );
   });
 
@@ -55,14 +60,30 @@ const AdHome = (props) => {
     );
   };
 
+  const UnLeave = () => {
+    const count = data.reduce(
+      (count, { Status }) => (Status === "0" ? (count += 1) : count),
+      0
+    );
+    return (
+      <>
+        <div className="leave-card">
+          <h3>ยังไม่อนุมัติวันลา</h3>
+          <div>{count}</div>
+        </div>
+      </>
+    )
+  };
+
   return (
     <>
-      <h1>Hello Morning</h1>
+      <h1>หน้าแรก</h1>
       <div></div>
       <div className="list-card">
         <Sum />
         <SumUser />
         <SumAdmin />
+        <UnLeave />
       </div>
     </>
   );

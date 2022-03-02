@@ -16,10 +16,31 @@ const DateFormat = (date) => {
   return [day, month, year].join("/");
 };
 
+const ReDateFormat = (date) => {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("/");
+};
+
+async function Add(credentials) {
+  return fetch("http://localhost:8081/api/v1/sal/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+}
+
 const AddSal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataList, setDataList] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
   const [get, setGet] = useState([]);
   const [data, setData] = useState([]);
   const [uname, setUname] = useState("");
@@ -53,14 +74,27 @@ const AddSal = () => {
 
   const salcom = (sal) => {
     setSalBase(sal);
-    alert(get.length)
-    const count = get.reduce(
-      (count, { Status }) => (Status === "1" ? (count += 1) : count),
+    const count = data.reduce(
+      (count, { Uid, Status }) =>
+        Uid === uname && Status === "1" ? (count += 1) : count,
       0
     );
     setLeave(count);
     const sum = sal - count * (sal / 30);
     setSalTotal(parseFloat(sum).toFixed(2));
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const response = await Add({
+      uname,
+      sal_base,
+      sal_total,
+      sal_date,
+    });
+    if (response.message === "Add completed") {
+      togglePopup();
+    }
   };
 
   const togglePopup = () => {
@@ -80,7 +114,7 @@ const AddSal = () => {
           content={
             <>
               <h3>เพิ่มการจ่าย</h3>
-              <form className="add-sal">
+              <form className="add-sal" onSubmit={submit}>
                 <select
                   className="form-select"
                   aria-label="Default select example"
@@ -117,7 +151,10 @@ const AddSal = () => {
                 <label for="exampleInputEmail1" class="form-label">
                   วันที่ออก
                 </label>
-                <input type="date" />
+                <input
+                  type="date"
+                  onChange={(e) => setSalDate(ReDateFormat(e.target.value))}
+                />
                 <button type="submit" className="btn-submit">
                   เพิ่ม
                 </button>
